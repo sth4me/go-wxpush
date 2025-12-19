@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"embed"
 	"encoding/json"
 	"flag"
@@ -228,8 +229,15 @@ func getAccessToken(appid, secret string) (string, error) {
 		return "", err
 	}
 
+	// 忽略证书验证
+	client := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		},
+	}
+
 	// 发送POST请求
-	resp, err := http.Post("https://api.weixin.qq.com/cgi-bin/stable_token", "application/json", strings.NewReader(string(jsonData)))
+	resp, err := client.Post("https://api.weixin.qq.com/cgi-bin/stable_token", "application/json", strings.NewReader(string(jsonData)))
 	if err != nil {
 		return "", err
 	}
@@ -281,8 +289,15 @@ func sendTemplateMessage(accessToken string, params RequestParams) (WechatAPIRes
 		return WechatAPIResponse{}, err
 	}
 
+	// 忽略证书验证
+	client := &http.Client{
+		Transport: &http.Transport{
+			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+		},
+	}
+
 	// 发送POST请求
-	resp, err := http.Post(apiUrl, "application/json", strings.NewReader(string(jsonData)))
+	resp, err := client.Post(apiUrl, "application/json", strings.NewReader(string(jsonData)))
 	if err != nil {
 		return WechatAPIResponse{}, err
 	}

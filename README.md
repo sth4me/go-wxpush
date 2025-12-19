@@ -9,6 +9,7 @@
 ## ✨ 特性
 
 ✅ 完全免费，下载即使用  
+✅ 支持 Docker 一键部署  
 ✅ 每天 10 万次额度，个人用不完  
 ✅ 真正的微信原生弹窗 + 声音提醒  
 ✅ 支持多用户  
@@ -61,7 +62,20 @@ docker run -d -p 5566:5566 --name go-wxpush0 go-wxpush:v2 \
 -appid "xxx" \
 -secret "xxx" \
 -userid "xxx-k08" \
--template_id "xxx-Ks_PwGm--GSzllU" \
+-template_id "xxx-Ks_PwGm--GSzllU"
+```
+
+### 🐳 Docker 一键部署
+```
+# 参数格式与终端启动保持一致, 替换成实际值即可
+docker run -it -d -p 3322:3322 --init --name go-wxpush3 hezhizheng/go-wxpush:v3 \
+-port "3322" \
+-title "测试标题3322" \
+-content "测试内容3322" \
+-appid "xxx" \
+-secret "xxx" \
+-userid "xxx-k08" \
+-template_id "xxx-Ks_PwGm--GSzllU"
 ```
 
 ## 🗭 默认消息详情页
